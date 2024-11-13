@@ -228,3 +228,113 @@ footer p {
         gap: 10px;
     }
 }
+
+/* Sección de Estrenos */
+#estrenos {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#estrenos h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.estreno-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.video-teaser video {
+    width: 50%; /* Reducimos el tamaño del video */
+    max-width: 700px; /* Limitar el ancho máximo */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.contador h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e4e0e0;
+}
+
+#countdown {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F7A800;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.cta-btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 12px 25px;
+    background-color: #1DB954; /* Color verde característico de Spotify */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px; /* Bordes redondeados más pronunciados */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil en el botón */
+    display: inline-block; /* Para que el enlace se comporte como un botón */
+    text-align: center; /* Centrado del texto */
+}
+
+/* Efecto hover */
+.cta-btn:hover {
+    background-color: #1ED760; /* Color ligeramente más claro al pasar el ratón */
+    transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el ratón */
+}
+
+/* Estilo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .cta-btn {
+        font-size: 1rem; /* Reducir el tamaño de la fuente */
+        padding: 10px 20px; /* Reducir el relleno */
+        width: 80%; /* Hacer el botón más grande en dispositivos pequeños */
+        margin: 0 auto; /* Centrar el botón */
+        display: block; /* Hacer que el botón ocupe todo el ancho posible */
+    }
+}
+
+/* Para mejorar la accesibilidad */
+.cta-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Añadir un foco para accesibilidad */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    /* Ajuste para la sección de estrenos */
+    #estrenos h2 {
+        font-size: 2rem;
+    }
+
+    .estreno-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .video-teaser video {
+        width: 80%; /* Reducimos aún más el tamaño del video en pantallas pequeñas */
+        max-width: 500px; /* Limitar el ancho máximo en pantallas pequeñas */
+    }
+
+    .contador h3 {
+        font-size: 1.8rem;
+    }
+
+    #countdown {
+        font-size: 2.3rem;
+    }
+    
+}

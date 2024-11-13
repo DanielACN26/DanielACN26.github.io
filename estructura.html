@@ -21,6 +21,7 @@
         <nav>
             <ul>
                 <li><a href="#biografia">Biografía</a></li>
+                <li><a href="#estrenos">Estrenos</a></li>
                 <li><a href="#canciones">Canciones</a></li>
                 <li><a href="#redes-sociales">Redes</a></li>
             </ul>
@@ -34,7 +35,25 @@
             Destacándose por su habilidad para fusionar el RnB con géneros urbanos como el trap, reggae y drill, Andrezz ha dejado una huella única en la escena musical. En 2020, lanzó su primer EP, ‘A.D.’, seguido de ‘Nómada’ en 2023, en los cuales revela su identidad artística y versatilidad 🎵. Además, ha colaborado con varios artistas, logrando más de 10,000 streams en Spotify ⭐️.
             En mayo de 2024, Andrezz se unió a Ori Yi, donde el enfoque principal es demostrar que ha depositado su confianza en el lugar correcto. Con disciplina y paciencia, está en el camino de materializar todas las metas que imagina para su proyecto 🧠🏆.</p>
     </section>
-
+    <!-- Sección de estrenos -->
+    <section id="estrenos">
+        <h2>Próximo Estreno</h2>
+        <div class="estreno-container">
+            <div class="video-teaser">
+                <video controls autoplay muted loop>
+                    <source src="videos/videoestreno.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+            <div class="contador">
+                <h3>¡Cuenta atrás para el lanzamiento!</h3>
+                <p id="countdown"></p>
+            </div>
+            <div class="cta">
+                <a href="https://open.spotify.com/artist/1bqYyNFV07VE26TEkHwbVi" target="_blank" class="cta-btn">Añadir en mi lista de Spotify</a>
+            </div>
+        </div>
+    </section>
     <!-- Sección de previsualizaciones de canciones -->
     <section id="canciones">
         <h2>Canciones</h2>
@@ -84,6 +103,37 @@
             <li><a href="https://www.tiktok.com/@andrezzog" target="_blank">TikTok</a></li>
         </ul>
     </section>
+    <script>
+        // Fecha de lanzamiento
+        const launchDate = new Date("Nov 15, 2024 00:00:00").getTime();
+    
+        // Actualiza el contador cada segundo
+        const x = setInterval(function() {
+    
+            // Fecha y hora actuales
+            const now = new Date().getTime();
+    
+            // Diferencia entre la fecha de lanzamiento y la actual
+            const distance = launchDate - now;
+    
+            // Cálculos de días, horas, minutos y segundos
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+            // Muestra el contador
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+    
+            // Si la cuenta regresiva ha terminado
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "¡El tema ya está disponible!";
+            }
+        }, 1000);
+    </script>
+    
 
     <!-- Footer -->
     <footer>
@@ -91,4 +141,3 @@
     </footer>
 </body>
 </html>
-
