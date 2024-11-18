@@ -1,340 +1,461 @@
-/* General reset */
-* {
+/* General */
+body, html {
     margin: 0;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    height: 100%;
     box-sizing: border-box;
+    overflow-x: hidden; /* Solo evita desplazamientos horizontales */
+    scroll-behavior: smooth;
+    background: #000; /* Fondo negro en el body para que se vea oscuro en toda la página */
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #000;
-    color: white;
+/* Sección de presentación */
+#presentacion {
     position: relative;
-    z-index: 1;
+    width: 100%;
+    height: 100vh; /* Asegura que siempre ocupe toda la altura de la ventana */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000; /* Fondo de seguridad */
+    overflow: hidden; /* Para evitar desbordamientos */
 }
 
-/* Video de fondo */
-#video-background {
-    position: fixed;
+/* Añadir prefijos para compatibilidad con navegadores antiguos */
+#presentacion::before {
+    background: rgba(0, 0, 0, 0.6); /* Ya es compatible, pero en navegadores antiguos podría necesitar el prefijo */
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+#presentacion video {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0.9;
+    object-fit: cover; /* Asegura que el video cubra toda la sección */
+    filter: brightness(50%); /* Aplica un filtro para oscurecer el video */
+    z-index: 0; /* Coloca el video detrás del contenido */
 }
 
-/* Fondo más oscuro para el encabezado y el índice (menú) */
-header {
-    background-color: rgba(0, 0, 0, 0.9);
-    padding: 20px;
+#presentacion::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Degradado oscuro */
+    z-index: 0;
+}
+
+
+/* Texto superpuesto */
+.texto-superpuesto {
+    position: relative;
     text-align: center;
-    margin: 0;
+    z-index: 2;
 }
 
-header h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-nav ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-nav ul li {
-    display: inline-block;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
+#texto-cambiando {
+    font-size: 7vw; /* Tamaño del texto dinámico basado en el ancho de la ventana */
     font-weight: bold;
-    font-size: 1.2rem;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-nav ul li a:hover {
-    background-color: #444;
-}
-
-/* Fondo negro continuo para las secciones */
-section {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 40px 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+    animation: glow 3s infinite alternate;
+    white-space: normal;
+    line-height: 1.5;
     text-align: center;
-    margin: 0;
-    width: 100%; /* Asegura que el fondo cubra todo el ancho */
+    padding: 0 10vw;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* Biografía */
-#biografia h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+    }
 }
 
-/* Mejora del párrafo de biografía */
-#biografia p {
-    font-family: 'Courier New', Courier, monospace; /* Cambiar fuente a Courier New */
-    max-width: 900px;       /* Limitar el ancho del párrafo */
-    margin: 0 auto;         /* Centrar el párrafo */
-    color: #e4e0e0; 
-    text-align: justify;    /* Justificar el texto */
-    line-height: 1.5;       /* Aumentar el interlineado */
-    padding: 20px;          /* Añadir margen interno para separar el texto de los bordes */
-    background-color: rgba(255, 255, 255, 0.1); /* Añadir un fondo ligero para el párrafo */
-    border-radius: 10px;    /* Bordes redondeados */
+/* Sección de canciones */
+#canciones {
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
 }
 
-/* Sección Canciones */
 #canciones h2 {
+    font-size: 5rem;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5rem;
+    color: transparent;
+    background: linear-gradient(90deg, #ff007f, #ff9a00, #007fff);
+    background-size: 300%;
+    -webkit-background-clip: text; /* Necesario para Safari */
+    background-clip: text; /* Para navegadores modernos */
+    animation: gradientMove 3s infinite;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.carrusel-canciones {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #444 #222;
+}
+
+.carrusel-canciones::-webkit-scrollbar {
+    height: 10px;
+}
+
+.carrusel-canciones::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.carrusel-canciones::-webkit-scrollbar-track {
+    background-color: #222;
+}
+
+/* Canción */
+.cancion {
+    flex: 0 0 auto;
+    width: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #1d1d1d;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: start;
+    cursor: pointer;
+}
+
+.cancion img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cancion-info {
+    padding: 15px;
+    text-align: center;
+    background: linear-gradient(10deg, rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0.9) 100%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    color: #fff;
+}
+
+.cancion:hover .cancion-info {
+    transform: translateY(0);
 }
 
 .cancion h3 {
-    font-family: 'Courier New', Courier, monospace; /* Cambiar fuente a Courier New */
-    font-size: 1.6rem; /* Tamaño de la fuente */
-    font-weight: bold; /* Negrita */
-    color: #cccaca; /* Color dorado para resaltar */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra sutil */
-    margin-bottom: 15px; /* Espaciado inferior */
+    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
-.canciones-container {
+.cancion-info p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancion-info p i {
+    margin-right: 8px;
+}
+
+.btn-spotify {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    background: #1db954;
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-spotify:hover {
+    background: #1ed760;
+    transform: scale(1.05);
+}
+
+#logros {
+    margin-top: -100px;
+    padding: 50px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro con opacidad */
+    color: #fff;
+}
+
+#logros h2 {
+    font-size: 5rem;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(90deg, #ff007f, #ff9a00, #007fff);
+    background-size: 300%;
+    -webkit-background-clip: text; /* Necesario para Safari */
+    background-clip: text; /* Para navegadores modernos */
+    animation: gradientMove 3s infinite;
+    margin-bottom: 30px;
+}
+
+
+.logros-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px;
+    justify-content: center;
+    gap: 40px; /* Más espacio entre tarjetas */
 }
 
-.cancion {
-    width: 45%;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
+.logro-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px; /* Bordes más redondeados */
+    padding: 30px; /* Más espacio interior */
+    width: 300px; /* Más ancho */
+    height: 200px; /* Altura fija */
     text-align: center;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ajuste del tamaño del reproductor de audio */
-.cancion audio {
-    width: 100%; /* El reproductor ocupará el 100% del ancho del contenedor */
-    max-width: 100%; /* Evita que el reproductor sobresalga */
-    margin-top: 10px; /* Añade un pequeño margen superior para separación */
+.logro-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
 }
 
-
-/* Imagen de la canción */
-.cancion-imagen {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
+.logro-card i {
+    font-size: 3.5rem; /* Iconos más grandes */
+    margin-bottom: 0px; /* Más espacio debajo del ícono */
+    color: #ff9a00;
 }
 
-/* Redes sociales */
+.logro-cifra {
+    font-size: 3rem; /* Texto más grande */
+    font-weight: bold;
+    margin: 15px 0;
+    color: #fff;
+    opacity: 0; /* Oculto inicialmente */
+    transform: translateY(10px); /* Animación desde abajo */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
 
-/* Redes sociales */
+.logro-cifra.visible {
+    opacity: 1; /* Aparece */
+    transform: translateY(0); /* Vuelve a su lugar */
+}
+
+.logro-descripcion {
+    font-size: 1.3rem; /* Texto más grande */
+    color: #ccc; /* Color del texto */
+    margin-top: 10px; /* Espacio entre la cifra y la descripción */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo negro suave con opacidad */
+    padding: 5px 10px; /* Añade un poco de espacio dentro del fondo */
+    border-radius: 5px; /* Bordes redondeados */
+    line-height: 1.6; /* Mejorar la legibilidad */
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#redes-sociales {
+    margin-top: -30px;
+    padding: 50px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro con opacidad */
+    color: #fff;
+}
+
 #redes-sociales h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5rem; /* Mismo tamaño que los títulos de biografía y canciones */
+    font-size: 5rem; /* Tamaño grande */
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Alineación centrada */
+    color: transparent; /* Color del texto transparente */
+    background: linear-gradient(90deg, #ff007f, #ff9a00, #007fff); /* Gradiente de colores */
+    background-size: 300%; /* Tamaño del fondo */
+    -webkit-background-clip: text; /* Aplica el gradiente solo al texto */
+    background-clip: text; /* Aplica el gradiente solo al texto */
+    animation: gradientMove 3s infinite; /* Animación que mueve el gradiente */
+    margin-bottom: 25px; /* Espacio abajo */
+    margin-top: 20px;
 }
 
-#redes-sociales ul {
-    list-style-type: none;
+.redes-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Permite que las redes se distribuyan en varias filas si es necesario */
-    gap: 20px; /* Espacio entre los elementos */
-    margin-top: 30px;
-    padding: 0; /* Elimina el espacio extra de la lista */
+    gap: 20px; /* Menos espacio entre tarjetas */
+    flex-wrap: wrap;
 }
 
-#redes-sociales ul li {
-    margin: 10px; /* Añadimos margen adicional para más separación */
+.redes-card {
+    background: rgba(255, 255, 255, 0.1); /* Fondo suave */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 20px; /* Menos padding para hacerlo más pequeño */
+    text-align: center;
+    width: 180px; /* Contenedores más pequeños */
+    height: 180px; /* Altura más pequeña */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-#redes-sociales ul li a {
-    color: #cccaca; 
+.redes-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+}
+
+.redes-card i {
+    font-size: 4rem; /* Tamaño del ícono */
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+
+/* Colores personalizados para cada red social */
+#redes-sociales .redes-card.youtube {
+    background-color: #FF0000; /* YouTube */
+}
+
+#redes-sociales .redes-card.spotify {
+    background-color: #1DB954; /* Spotify */
+}
+
+#redes-sociales .redes-card.apple {
+    background-color: #000000; /* Apple Music */
+}
+
+#redes-sociales .redes-card.instagram {
+    background-color: #E4405F; /* Instagram */
+}
+
+.redes-nombre {
+    font-size: 1.2rem; /* Tamaño del texto */
     font-weight: bold;
-    font-size: 1.2rem;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s;
-    display: inline-block;
-    text-align: center;
-    width: 150px; /* Tamaño fijo para que todos los enlaces sean del mismo ancho */
+    color: #fff;
+    margin-top: 25px;
+    text-transform: capitalize; /* Capitaliza las primeras letras */
 }
 
-#redes-sociales ul li a:hover {
-    background-color: #444;
+/* Colores de texto para cada red social */
+#redes-sociales .redes-card.youtube {
+    color: #FF0000; /* YouTube */
 }
 
-#redes-sociales ul li a[href*="youtube.com"] {
-    color: red; /* Cambiar color del texto a rojo para el enlace de YouTube */
-}
-#redes-sociales ul li a[href*="spotify.com"] {
-    color: #1DB954; /* Color verde característico de Spotify */
-}
-#redes-sociales ul li a[href*="instagram.com"] {
-    color: #FCB045; /* Color verde característico de Spotify */
+#redes-sociales .redes-card.spotify{
+    color: #1DB954; /* Spotify */
 }
 
-/* Footer */
-footer {
-    background-color: rgba(0, 0, 0, 0.9);
-    text-align: center;
-    padding: 10px 0;
+#redes-sociales .redes-card.apple{
+    color: #000000; /* Apple Music */
 }
 
-footer p {
-    color: white;
-    font-size: 1rem;
+#redes-sociales .redes-card.instagram{
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 }
 
-/* Responsividad */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#footer {
+    background-color: #111; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+    text-align: center; /* Centrar el texto */
+    padding: 20px 0; /* Espaciado */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+#footer p {
+    margin: 0;
+    font-size: 1rem; /* Tamaño adecuado para pie de página */
+}
+
 @media (max-width: 768px) {
-    .canciones-container {
+    .carrusel-canciones {
         flex-direction: column;
         align-items: center;
+        padding: 10px; /* Espaciado reducido para pantallas pequeñas */
     }
 
     .cancion {
         width: 90%;
+        height: auto;
+        margin: 10px 0; /* Añade un poco de espacio entre las canciones */
     }
 
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
+
+    #texto-cambiando {
+        font-size: 12vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+        padding: 0 5vw; /* Reduce el padding */
     }
 
-    #redes-sociales ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-/* Sección de Estrenos */
-#estrenos {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-#estrenos h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.estreno-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-.video-teaser video {
-    width: 50%; /* Reducimos el tamaño del video */
-    max-width: 700px; /* Limitar el ancho máximo */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.contador h3 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #e4e0e0;
-}
-
-#countdown {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #F7A800;
-    margin-top: 10px;
-    font-family: 'Courier New', monospace;
-}
-
-.cta-btn {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 12px 25px;
-    background-color: #1DB954; /* Color verde característico de Spotify */
-    color: white;
-    text-decoration: none;
-    border-radius: 30px; /* Bordes redondeados más pronunciados */
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    text-transform: uppercase; /* Texto en mayúsculas */
-    letter-spacing: 2px; /* Espaciado entre letras */
-    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra sutil en el botón */
-    display: inline-block; /* Para que el enlace se comporte como un botón */
-    text-align: center; /* Centrado del texto */
-}
-
-/* Efecto hover */
-.cta-btn:hover {
-    background-color: #1ED760; /* Color ligeramente más claro al pasar el ratón */
-    transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al pasar el ratón */
-}
-
-/* Estilo para pantallas pequeñas */
-@media (max-width: 768px) {
-    .cta-btn {
-        font-size: 1rem; /* Reducir el tamaño de la fuente */
-        padding: 10px 20px; /* Reducir el relleno */
-        width: 80%; /* Hacer el botón más grande en dispositivos pequeños */
-        margin: 0 auto; /* Centrar el botón */
-        display: block; /* Hacer que el botón ocupe todo el ancho posible */
-    }
-}
-
-/* Para mejorar la accesibilidad */
-.cta-btn:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Añadir un foco para accesibilidad */
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-    /* Ajuste para la sección de estrenos */
-    #estrenos h2 {
-        font-size: 2rem;
+    #presentacion {
+        padding: 0 10px; /* Añadir padding para que el contenido no quede pegado a los bordes */
     }
 
-    .estreno-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
+    #presentacion video {
+        object-fit: cover;
     }
 
-    .video-teaser video {
-        width: 80%; /* Reducimos aún más el tamaño del video en pantallas pequeñas */
-        max-width: 500px; /* Limitar el ancho máximo en pantallas pequeñas */
+    .redes-card {
+        width: 150px; /* Hacer los íconos de redes sociales más pequeños */
+        height: 150px;
     }
 
-    .contador h3 {
-        font-size: 1.8rem;
+    .redes-nombre {
+        font-size: 1rem; /* Reducir el tamaño del texto en redes sociales */
+        margin-top: 10px;
     }
 
-    #countdown {
-        font-size: 2.3rem;
+    #canciones h2,
+    #logros h2,
+    #redes-sociales h2 {
+        font-size: 3rem; /* Reducir tamaño de los títulos en pantallas pequeñas */
+        padding: 0 15px; /* Añadir espacio horizontal para evitar que el texto se desborde */
     }
-    
+
+    .logros-container, .redes-container {
+        padding: 0 15px; /* Ajustar los contenedores */
+    }
+
 }
