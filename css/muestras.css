@@ -28,30 +28,43 @@ body, html {
     background: rgba(0, 0, 0, 0.6); /* Ya es compatible, pero en navegadores antiguos podría necesitar el prefijo */
     -webkit-background-clip: text;
     background-clip: text;
+    object-fit: cover; /* Hace que la imagen cubra todo el área */
+    object-position: center center; /* Asegura que la imagen esté centrada */
 }
 
-#presentacion video {
+/* Contenedor de la imagen con bordes redondeados y desenfoque */
+.image-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que el video cubra toda la sección */
-    filter: brightness(50%); /* Aplica un filtro para oscurecer el video */
-    z-index: 0; /* Coloca el video detrás del contenido */
+    border-radius: 25px; /* Bordes redondeados */
+    overflow: hidden;
+    filter: blur(5px); /* Añade desenfoque sutil a la imagen */
+    z-index: 0; /* Asegura que la imagen esté detrás del contenido */
 }
 
-#presentacion::before {
+/* Imagen de fondo */
+.image-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra toda el área */
+    filter: brightness(50%) contrast(120%) saturate(120%); /* Mejora el brillo, contraste y saturación */
+}
+
+/* Añadir un gradiente sutil sobre la imagen */
+.image-background::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Degradado oscuro */
-    z-index: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); /* Gradiente de arriba a abajo */
+    border-radius: 25px; /* Bordes redondeados del gradiente */
+    z-index: 0; /* Asegura que el gradiente esté encima de la imagen pero debajo del texto */
 }
-
 
 /* Texto superpuesto */
 .texto-superpuesto {
@@ -425,16 +438,17 @@ body, html {
 
 
     #texto-cambiando {
-        font-size: 12vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+        font-size: 20vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
         padding: 0 5vw; /* Reduce el padding */
     }
 
     #presentacion {
+        margin-bottom: -50px;
         padding: 0 10px; /* Añadir padding para que el contenido no quede pegado a los bordes */
     }
 
-    #presentacion video {
-        object-fit: cover;
+    .image-background {
+        filter: blur(3px); /* Menos desenfoque en pantallas pequeñas */
     }
 
     .redes-card {
