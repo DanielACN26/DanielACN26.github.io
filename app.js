@@ -64,3 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     counters.forEach(counter => counterObserver.observe(counter));
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('#presentacion video');
+    if (video) {
+        video.muted = true; // Asegura que el video esté silenciado
+        video.play().catch((error) => {
+            console.error('El video no pudo reproducirse automáticamente:', error);
+        });
+    }
+});
